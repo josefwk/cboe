@@ -123,6 +123,7 @@ std::string cItem::interesting_string() const {
 		return "Cursed item.";
 	}
 	bool got_string = true;
+	short min_defense = min(item_level, 1);
 	std::ostringstream sout;
 	switch(variety) {
 		case eItemType::ONE_HANDED:
@@ -144,8 +145,8 @@ std::string cItem::interesting_string() const {
 		case eItemType::GLOVES:
 		case eItemType::SHIELD_2:
 		case eItemType::BOOTS:
-			sout << "Blocks " << 1 + min_defense_bonus(bonus) + sgn(protection);
-			sout << '-' << max(1,item_level) + max_defense_bonus(bonus) + protection;
+			sout << "Blocks " << min_defense + min_defense_bonus(bonus) + sgn(protection);
+			sout << '-' << max(min_defense,item_level) + max_defense_bonus(bonus) + protection;
 			sout << " damage";
 			break;
 		case eItemType::BOW:
